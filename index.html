@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .subject {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SGPA Calculator</h1>
+        <h2>SEM IV</h2>
+        <h3>(Enter total marks out of 100.) </h3>
+        <form id="cgpaForm">
+            <div class="subject">
+                <label for="cs225">Applied Mathematics-II:</label>
+                <input type="number" id="cs225" max="100" required>
+            </div>
+            <div class="subject">
+                <label for="cs223">Computer Organization:</label>
+                <input type="number" id="cs223" max="100" required>
+            </div>
+            <div class="subject">
+                <label for="cs222">Advanced Microprocessor:</label>
+                <input type="number" id="cs222" max="100" required>
+            </div>
+            <div class="subject">
+                <label for="cs221">Theory of Computation:</label>
+                <input type="number" id="cs221" max="100" required>
+            </div>
+            <div class="subject">
+                <label for="cs224">Software Engineering:</label>
+                <input type="number" id="cs224" max="100" required>
+            </div>
+            <div class="subject">
+                <label for="cs222l">Advanced Microprocessor Lab:</label>
+                <input type="number" id="cs222l" max="100" required>
+            </div>
+            <div class="subject">
+                <label for="cs226l">Linux and Shell Programming:</label>
+                <input type="number" id="cs226l" max="100" required>
+            </div>
+            <div class="subject">
+                <label for="cs227l">Object Oriented Programming Lab:</label>
+                <input type="number" id="cs227l" max="100" required>
+            </div>
+            <button type="submit">Calculate SGPA</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('cgpaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const subjects = [
+                { id: 'cs221', credits: 4 },
+                { id: 'cs222', credits: 4 },
+                { id: 'cs223', credits: 3 },
+                { id: 'cs224', credits: 3 },
+                { id: 'cs225', credits: 4 },
+                { id: 'cs222l', credits: 1 },
+                { id: 'cs226l', credits: 3 },
+                { id: 'cs227l', credits: 3 }
+            ];
+
+            let totalPoints = 0;
+            let totalCredits = 0;
+
+            subjects.forEach(subject => {
+                const marks = parseFloat(document.getElementById(subject.id).value);
+                let gradePoint = Math.floor(marks / 10) + 1;
+
+                totalPoints += gradePoint * subject.credits;
+                totalCredits += subject.credits;
+            });
+
+            const cgpa = (totalPoints / totalCredits).toFixed(2);
+
+            document.getElementById('result').innerText = `Your CGPA is: ${cgpa}`;
+        });
+    </script>
+</body>
+</html>
